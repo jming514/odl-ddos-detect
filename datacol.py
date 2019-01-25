@@ -12,22 +12,37 @@ def collectData():
     #     json.dump(data, f)
 
     # read json
-    with open('flowData.json', 'r') as f:
+    with open('flowData4.json', 'r') as f:
         data = json.load(f)
 
-    unwanted_chars = '(){}\'received:transmitted,'
-
-    numOfCon = len(data['nodes']['node'][0]['node-connector'])
-    for i in range(numOfCon):
-        x = data['nodes']['node'][0]['node-connector'][i]['id']
-        y = str(data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['packets'])
-        z = str(data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['bytes'])
-        j = str(data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['duration']['second'])
-        
-        for c in unwanted_chars:
-            y = y.replace(c, '')
-            z = z.replace(c, '')
-            j = j.replace(c, '')
-        
         # append to a text file
-        print(x, y, z, j)
+    b = 0
+    c = 0
+    d = 0
+    e = 0
+
+    while True:
+        numOfCon = len(data['nodes']['node'][0]['node-connector'])
+
+        # inerates over every flow for the switch
+        for i in range(numOfCon):
+            # attributes
+            a = data['nodes']['node'][0]['node-connector'][i]['id']
+            b = data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['packets']['received']
+            c = data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['packets']['transmitted']
+            d = data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['bytes']['received']
+            e = data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['bytes']['transmitted']
+            z = data['nodes']['node'][0]['node-connector'][i]['opendaylight-port-statistics:flow-capable-node-connector-statistics']['duration']
+            
+            entry = [a, b, c, d, e, z]
+            # print(entry)
+
+            # # append to a text file
+            with open('flowDataset.txt', 'a') as f:
+                for item in entry: 
+                    f.write("%s\t" % item)
+                f.write("\n")
+
+        time.sleep(1)
+
+collectData()
