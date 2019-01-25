@@ -15,7 +15,6 @@ def collectData():
     with open('flowData4.json', 'r') as f:
         data = json.load(f)
 
-        # append to a text file
     b = 0
     c = 0
     d = 0
