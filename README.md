@@ -10,6 +10,6 @@ http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf
 
 3. generate attack traffic (hping3)
 
-4. Set flags for dataset
+4. Set labels for dataset
 
 5. Train our ML algorithm
