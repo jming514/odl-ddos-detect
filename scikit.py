@@ -9,6 +9,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import confusion_matrix,classification_report
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 '''
 #wine = pd.read_csv("C:\\python37\\Lib\\site-packages\\sklearn\\datasets\\data\\winequality-red.csv",sep=';')
 ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\log-60-20.csv",sep=';')
@@ -72,7 +73,7 @@ pred_mlpc = mlpc.predict(x_test)
 #print('accuracy on the test subset: {:.3f}'.format(forest.score(x_test,y_test)))
 '''
 
-ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\kyotodataset2.csv")
+ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\EDP\\COE 800\\kyotodataset2.csv")
 x = ddos.drop('Column14',axis = 1)
 y = ddos['Column14']
  
@@ -89,6 +90,15 @@ rfc.fit(x_train,y_train)
 pred_rfc = rfc.predict(x_test)
 
 print(classification_report(y_test,pred_rfc))
+print('This models accuracy is:')
+print(accuracy_score(y_test,pred_rfc))
+
+#testing with a new variable
+xnew = [[300,5000,50000,2,1,0,1,0.67,0,0,0,0]]
+xnew = sc.transform(xnew)
+ynew = rfc.predict(xnew)
+print(ynew)
+
 #bins = (2,-1,1)
 #labels = ['bad','good']
 #print(ddos['Column18'].value_counts())
