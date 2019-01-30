@@ -7,21 +7,21 @@ class MyTopo(Topo):
         Topo.__init__(self)
 
         # Add hosts and switches
-
-        hosts = [self.addHost('h%d' % h) for h in irange(1, 45)]
-        # hosta = self.addHost('h1')
-        # hostb = self.addHost('h2')
-        # hostc = self.addHost('h3')
-        # hostd = self.addHost('h4')
-        # hoste = self.addHost('h5')
-        # hostf = self.addHost('h6')
-
         switcha = self.addSwitch('s1')
         switchb = self.addSwitch('s2')
 
+        for h in range(1, 46):
+            self.addHost('h' + str(h))
+            self.addLink('h' + str(h), switcha)
+        
+        self.addHost('server')
+        self.addLink('server', switchb)
+
+        
+
         # Add links
-        for i in hosts:
-            self.addLink(hosts[i], switcha)
+        # for i in hosts:
+        #     self.addLink(hosts[i], switcha)
         
         self.addLink(switcha, switchb)
         # self.addLink(hosta, switcha)
