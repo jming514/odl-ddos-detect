@@ -17,10 +17,13 @@ class MyTopo(Topo):
         # hostf = self.addHost('h6')
 
         switcha = self.addSwitch('s1')
+        switchb = self.addSwitch('s2')
 
         # Add links
         for i in hosts:
             self.addLink(hosts[i], switcha)
+        
+        self.addLink(switcha, switchb)
         # self.addLink(hosta, switcha)
         # self.addLink(hostb, switcha)
         # self.addLink(hostc, switcha)
