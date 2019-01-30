@@ -8,7 +8,7 @@ class MyTopo(Topo):
 
         # Add hosts and switches
 
-        hosts = [self.addHost('h%s' % h) for h in irange(1, 45)]
+        hosts = [self.addHost('h%d' % h) for h in irange(1, 45)]
         # hosta = self.addHost('h1')
         # hostb = self.addHost('h2')
         # hostc = self.addHost('h3')
