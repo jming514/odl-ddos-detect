@@ -1,8 +1,27 @@
 # odl-ddos-detect
 
+## How to setup environment
+
+Make sure to change the directory to where mytopo.py is before running the script
+
+```
+Start ODL
+
+Start Mininet VM
+
+Run Xming
+
+Open Miniedit in Putty
+
+Enter this into Mininet: sudo python mytopo.py
+
+Pingall to see the topo in ODL gui
+```
+
 Explanation of attributes for Kyoto University dataset
 http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf
 
+TODO List
 
 1. Generate realistic network traffic / generate attack traffic (hping3)
 
@@ -13,15 +32,6 @@ http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf
 4. Train our ML algorithm
 
 
+traffic.py needs to be modified. mytopo.py includes building the network + running the server + network traffic generation
 
-Start ODL
 
-Start Mininet VM
-
-Run Xming
-
-Open Miniedit in Putty
-
-Enter this into Miniedit: sudo mn --custom ~/mininet/custom/mytopo.py --topo mytopo --mac --controller=remote,ip=>>YOUR IP<<,port=6633
-
-Pingall to see the topo in ODL gui
