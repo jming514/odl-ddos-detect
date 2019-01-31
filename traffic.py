@@ -2,7 +2,7 @@ import socket
 import sys
 import time
 import random
-import numpy
+# import numpy
 import os
 
 def nettraffic():
@@ -38,5 +38,5 @@ def nettraffic():
 
 if __name__ == '__main__':
     time.sleep(3)
-    exec(open('server.py').read*())
+    exec(open('server.py').read())
     nettraffic()
