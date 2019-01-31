@@ -15,21 +15,11 @@ class MyTopo(Topo):
             self.addLink('h' + str(h), switcha)
         
         self.addHost('server')
-        self.addLink('server', switchb)
-
-        
 
         # Add links
-        # for i in hosts:
-        #     self.addLink(hosts[i], switcha)
-        
+        self.addLink('server', switchb)
         self.addLink(switcha, switchb)
-        # self.addLink(hosta, switcha)
-        # self.addLink(hostb, switcha)
-        # self.addLink(hostc, switcha)
-        # self.addLink(hostd, switcha)
-        # self.addLink(hoste, switcha)
-        # self.addLink(hostf, switcha)
+
 
 
 topos = {'mytopo': (lambda: MyTopo())}
