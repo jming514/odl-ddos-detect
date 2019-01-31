@@ -2,6 +2,8 @@
 
 ## How to setup environment
 
+open mytopo.py and change the IP address before running
+
 Make sure to change the directory to where mytopo.py is before running the script
 
 ```
@@ -32,5 +34,7 @@ Pingall to see the topo in ODL gui
 
 
 traffic.py needs to be modified. mytopo.py includes building the network + running the server + network traffic generation
+
+Run server.py on one thread then sleep for 5 seconds before running network traffic. Attack ~3 seconds after.
 
 Two attacker hosts need to be added to perform SYN flood during network traffic.
