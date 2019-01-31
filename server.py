@@ -1,6 +1,6 @@
 import socket
 import sys
-from _thread import *
+from thread import *
 import threading
 
 
@@ -30,19 +30,26 @@ def threaded(c):
   
   
 def Main(): 
-    host = "" 
+    host = "10.0.0.46" 
   
     # reverse a port on your computer 
     # in our case it is 12345 but it 
     # can be anything 
     port = 12345
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-    s.bind((host, port)) 
-    print("socket binded to post", port) 
+
+    try:
+        remote_ip = socket.gethostbyname(host)
+    except socket.gaierror():
+        print 'hostname could not be resolved. exiting'
+        sys.exit()
+
+    s.bind((remote_ip, port)) 
+    print(host, port) 
   
     # put the socket into listening mode 
     s.listen(5) 
-    print("socket is listening") 
+    print 'socket is listening'
   
     # a forever loop until client wants to exit 
     while True: 
@@ -52,7 +59,7 @@ def Main():
   
         # lock acquired by client 
         print_lock.acquire() 
-        print('Connected to :', addr[0], ':', addr[1]) 
+        print 'Connected to : ' + str(addr[0]) + ': ' + str(addr[1]) 
   
         # Start a new thread and return its identifier 
         start_new_thread(threaded, (c,)) 

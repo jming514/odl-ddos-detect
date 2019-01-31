@@ -6,28 +6,28 @@ import random
 import os
 
 def nettraffic():
-    x = 0
+    x = 1
     server = '10.0.0.46'
-    port = 5000
+    port = 12345
 
-    while (x < 45):
+    while (x < 46):
         join_time = [0.4, 0.6, 0,9, 1.1, 1.8, 2.0]
         time.sleep(random.choice(join_time))
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         except:
-            print('Failed to create a socket')
+            print 'Failed to create a socket'
             sys.exit()
 
-        print('Socket created')
+        print 'Socket created' 
 
         s.connect((server, port))
-        msg = 'GET / HTTP/1.1\r\nHost: 10.0.0.46\r\nConnection: close\r\n\r\n'
-        
+        # msg = 'GET / HTTP/1.1\r\nHost: 10.0.0.46\r\nConnection: close\r\n\r\n'
+        msg = 'hello world'
         y = 0
         while (y < 6):
-            s.sendall(msg)
+            s.sendall(b'helloworld')
             reply = s.recv(2048)
             print(reply)
             inter_time = [0.9, 1.0, 1.1, 1.2, 1.3, 1.4]
@@ -37,6 +37,7 @@ def nettraffic():
         x += 1
 
 if __name__ == '__main__':
-    time.sleep(3)
-    exec(open('server.py').read())
+    # time.sleep(3)
+    # exec(open('server.py').read())
+    print('Running')
     nettraffic()
