@@ -18,8 +18,7 @@ Enter this into Mininet: sudo python mytopo.py
 Pingall to see the topo in ODL gui
 ```
 
-Explanation of attributes for Kyoto University dataset
-http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf
+[Explanation](http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf) of attributes for Kyoto University dataset
 
 ## TODO List
 
@@ -34,4 +33,4 @@ http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf
 
 traffic.py needs to be modified. mytopo.py includes building the network + running the server + network traffic generation
 
-
+Two attacker hosts need to be added to perform SYN flood during network traffic.
