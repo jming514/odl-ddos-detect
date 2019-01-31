@@ -31,11 +31,12 @@ def tester(host):
     info(host.cmd('ifconfig'))
 
 def runEverything(net):
-    # hosts[-1].cmd('python server.py')
     for host in hosts[:-1]:
         t = Thread(target=tester, args=(host,))
         t.start()
         time.sleep(.1)
+
+    hosts[-1].cmd('python server.py')
 
 if __name__ == '__main__':
     setLogLevel('info')

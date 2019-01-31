@@ -37,7 +37,7 @@ def nettraffic():
         x += 1
 
 if __name__ == '__main__':
-    # time.sleep(3)
     # exec(open('server.py').read())
     print('Running')
+    time.sleep(15)
     nettraffic()
