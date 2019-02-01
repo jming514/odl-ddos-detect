@@ -73,9 +73,9 @@ pred_mlpc = mlpc.predict(x_test)
 #print('accuracy on the test subset: {:.3f}'.format(forest.score(x_test,y_test)))
 '''
 
-ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\EDP\\COE 800\\kyotodataset2.csv")
-x = ddos.drop('Column14',axis = 1)
-y = ddos['Column14']
+ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect-master\\testdataset.csv")
+x = ddos.drop('Column5',axis = 1)
+y = ddos['Column5']
  
 
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2,random_state = 0)
@@ -94,7 +94,7 @@ print('This models accuracy is:')
 print(accuracy_score(y_test,pred_rfc))
 
 #testing with a new variable
-xnew = [[300,5000,50000,2,1,0,1,0.67,0,0,0,0]]
+xnew = [[300,700,20000,40000]]
 xnew = sc.transform(xnew)
 ynew = rfc.predict(xnew)
 print(ynew)
