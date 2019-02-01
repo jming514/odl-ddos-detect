@@ -33,8 +33,4 @@ Pingall to see the topo in ODL gui
 - [ ] Train our ML algorithm
 
 
-traffic.py needs to be modified. mytopo.py includes building the network + running the server + network traffic generation
-
-Run server.py on one thread then sleep for 5 seconds before running network traffic. Attack ~3 seconds after.
-
-Two attacker hosts need to be added to perform SYN flood during network traffic.
+Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.
