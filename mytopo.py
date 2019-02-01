@@ -28,7 +28,11 @@ def customtopo():
         net.addLink('h' + str(h), switcha)
 
 def tester(host):
-    info(host.cmd('ifconfig'))
+    if str(host) == 'h2' or str(host) == 'h3':
+        time.sleep(45)
+        info(host.cmd('hping3 10.0.0.46 -p 12345 -S -i u34000 -c 3600'))
+    else:
+        info(host.cmd('python traffic.py'))
 
 def runEverything(net):
     for host in hosts[:-1]:
@@ -36,6 +40,7 @@ def runEverything(net):
         t.start()
         time.sleep(.1)
 
+    # hosts[-1].cmd('ping -c 1 10.0.0.1')
     hosts[-1].cmd('python server.py')
 
 if __name__ == '__main__':
@@ -52,18 +57,3 @@ if __name__ == '__main__':
     CLI(net)
     info('*** Stopping network')
     net.stop()
-    
-
-
-# def runEverything():
-#     topo = MyTopo(Topo)
-#     net = Mininet(topo)
-#     net.start()
-#     hosts = net.hosts
-#     # hosts[-1].cmd('python server.py &')
-#     for host in hosts:
-#         host.cmd('pingall')
-    
-    
-# if __name__ == '__main__':
-#     runEverything()
