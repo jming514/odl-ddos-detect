@@ -24,13 +24,13 @@ Pingall to see the topo in ODL gui
 
 ## TODO List
 
-- [x] Generate realistic network traffic / generate attack traffic (hping3)
+1. Generate realistic network traffic / generate attack traffic (hping3)
 
-- [ ] Set idle times for individual flows / access flow data (ODL)
+2. Set idle times for individual flows / access flow data (ODL)
 
-- [ ] Set labels for dataset
+3. Set labels for dataset
 
-- [ ] Train our ML algorithm
+4. Train our ML algorithm
 
 
 traffic.py needs to be modified. mytopo.py includes building the network + running the server + network traffic generation
