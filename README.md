@@ -24,13 +24,13 @@ Pingall to see the topo in ODL gui
 
 ## TODO List
 
-- [x] Generate realistic network traffic / generate attack traffic (hping3)
+- [ ] Multithread traffic.py (up to 10 connections at once)
 
-- [ ] Set idle times for individual flows / access flow data (ODL)
+- [ ] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same
 
-- [x] Set labels for dataset
+- [ ] Check number of tcp connections
 
-- [x] Train our ML algorithm
+- [ ] Find maximum number of connections before crashes
 
 
 Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.
