@@ -28,9 +28,9 @@ Pingall to see the topo in ODL gui
 
 - [ ] Set idle times for individual flows / access flow data (ODL)
 
-- [ ] Set labels for dataset
+- [x] Set labels for dataset
 
-- [ ] Train our ML algorithm
+- [x] Train our ML algorithm
 
 
 Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.
