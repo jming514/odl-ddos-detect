@@ -24,13 +24,15 @@ Pingall to see the topo in ODL gui
 
 ## TODO List
 
-- [ ] Multithread traffic.py (up to 10 connections at once)
+- [x] Multithread traffic.py (up to 10 connections at once) || Currently running 5 connections a once
 
-- [ ] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same
+- [ ] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same || Same results with rewritten server.py
 
 - [ ] Check number of tcp connections
 
 - [ ] Find maximum number of connections before crashes
+
+- [ ] (A) | (B) | (A + B) <-- volume of traffic timeline
 
 
 Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.
