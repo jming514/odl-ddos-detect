@@ -26,6 +26,8 @@ Pingall to see the topo in ODL gui
 
 - [x] Multithread traffic.py (up to 10 connections at once) || Currently running 5 connections a once
 
+- [ ] Move hping3 SYN attacks from topology script to CLI for better control of when attacks appear in dataset
+
 - [ ] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same || Same results with rewritten server.py
 
 - [ ] Check number of tcp connections
