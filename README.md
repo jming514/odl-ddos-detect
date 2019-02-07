@@ -16,8 +16,6 @@ Run Xming
 Open Miniedit in Putty
 
 Enter this into Mininet: sudo python mytopo.py
-
-Pingall to see the topo in ODL gui
 ```
 
 [Explanation](http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf) of attributes for Kyoto University dataset
@@ -28,13 +26,15 @@ Pingall to see the topo in ODL gui
 
 - [ ] Move hping3 SYN attacks from topology script to CLI for better control of when attacks appear in dataset
 
+- [ ] (A) | (B) | (A + B) <-- volume of traffic timeline || 10 hosts, 25 hosts, 45 hosts. Maybe try stopping ~10 hosts after? This should all be done in mytopo.py
+
 - [ ] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same || Same results with rewritten server.py
 
 - [ ] Check number of tcp connections
 
-- [ ] Find maximum number of connections before crashes
-
-- [ ] (A) | (B) | (A + B) <-- volume of traffic timeline
+- [ ] ~~Find maximum number of connections before crashes~~ || 45 hosts with 5 threaded connections possible
 
 
-Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.
+
+
+~~Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.~~
