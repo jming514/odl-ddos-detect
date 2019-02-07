@@ -17,6 +17,7 @@ from sklearn.preprocessing import scale
 import sklearn.metrics as sm
 import pylab as pl
 from sklearn.decomposition import PCA
+from mpl_toolkits.mplot3d import Axes3D
 
 
 '''
@@ -101,15 +102,16 @@ ynew = kmeans.predict(xnew)
 print(ynew)
 
 print(pd.crosstab(y,KMmodel.labels_))#see how many get labelled as 0 or 1
-pca = PCA(n_components=3).fit(x)
-pca_3d = pca.transform(x)
-for i in range(0,pca_3d.shape[0]):
+
+pca = PCA(n_components=2).fit(x)
+pca_2d = pca.transform(x)
+for i in range(0,pca_2d.shape[0]):
     if y[i] == 0:
-        c1 = pl.scatter(pca_3d[i,0],pca_3d[i,1],pca_3d[i,2],c='r', marker='+')
+        c1 = pl.scatter(pca_2d[i,0],pca_2d[i,1],c='r', marker='+')
     elif y[i] == 1:
-        c2 = pl.scatter(pca_3d[i,0],pca_3d[i,1],pca_3d[i,2],c='g', marker='o')
+        c2 = pl.scatter(pca_2d[i,0],pca_2d[i,1],c='g', marker='o')
 pl.legend([c1, c2], ['NOT', 'DDOS'])
-pl.title('Iris dataset with 3 clusters and known outcomes')
+pl.title('dataset with 2 clusters and known outcomes')
 
 pl.show()
 
