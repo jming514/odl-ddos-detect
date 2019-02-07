@@ -32,7 +32,7 @@ def tester(host):
         time.sleep(45)
         info(host.cmd('hping3 10.0.0.46 -p 12345 -S -i u34000 -c 3600'))
     else:
-        info(host.cmd('python traffic.py'))
+        info(host.cmd('python traffic.py &'))
 
 def runEverything(net):
     for host in hosts[:-1]:
@@ -41,7 +41,7 @@ def runEverything(net):
         time.sleep(.1)
 
     # hosts[-1].cmd('ping -c 1 10.0.0.1')
-    hosts[-1].cmd('python server.py')
+    hosts[-1].cmd('python server.py &')
 
 if __name__ == '__main__':
     setLogLevel('info')
