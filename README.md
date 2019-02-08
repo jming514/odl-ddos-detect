@@ -24,9 +24,9 @@ Enter this into Mininet: sudo python mytopo.py
 
 - [x] Multithread traffic.py (up to 10 connections at once) || Currently running 5 connections a once
 
-- [ ] Move hping3 SYN attacks from topology script to CLI for better control of when attacks appear in dataset
+- [x] Move hping3 SYN attacks from topology script to CLI for better control of when attacks appear in dataset
 
-- [ ] (A) | (B) | (A + B) <-- volume of traffic timeline || 10 hosts, 25 hosts, 45 hosts. Maybe try stopping ~10 hosts after? This should all be done in mytopo.py
+- [ ] (A) -> (A + B) -> (A + B + C) <-- volume of traffic timeline || 10 hosts, 25 hosts, 45 hosts. Maybe try stopping ~10 hosts after? This should all be done in mytopo.py
 
 - [ ] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same || Same results with rewritten server.py
 
