@@ -41,11 +41,13 @@ Enter this into Mininet: sudo python mytopo.py
 
 - [x] (A) -> (A + B) -> (A + B + C) <-- volume of traffic timeline || 10 hosts, 25 hosts, 43 hosts. ~~Maybe try stopping ~10 hosts after? This should all be done in mytopo.py~~
 
-- [ ] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same || Same results with rewritten server.py BUT 0207 results are fixed??
+- [x] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same || Same results with rewritten server.py BUT 0207 results are fixed??
+
+- [x] ~~Find maximum number of connections before crashes~~ || 45 hosts with 5 threaded connections possible
 
 - [ ] ~~Check number of tcp connections~~
 
-- [ ] ~~Find maximum number of connections before crashes~~ || 45 hosts with 5 threaded connections possible
+
 
 
 
