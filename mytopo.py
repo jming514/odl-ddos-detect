@@ -40,16 +40,31 @@ def runEverything(net):
         t = Thread(target=tester, args=(host,))
         t.start()
         time.sleep(0.2)
-    time.sleep(60)
-    for host in hosts[10:26]:
-        t = Thread(target=tester1, args=(host,))
-        t.start()
-        time.sleep(0.2)
-    time.sleep(60)
-    for host in hosts[26:44]:
-        t = Thread(target=tester2, args=(host,))
-        t.start()
-        time.sleep(0.2)
+    
+    # time.sleep(60)
+    # info(hosts[45].cmd('hping3 10.0.0.46 -p 12345 -S -i u33000 -c 450'))
+    # info(hosts[44].cmd('hping3 10.0.0.46 -p 12345 -S -i u33000 -c 450'))
+    # time.sleep(10)
+
+    # for host in hosts[10:26]:
+    #     t = Thread(target=tester1, args=(host,))
+    #     t.start()
+    #     time.sleep(0.2)
+
+    # time.sleep(72)
+    # info(hosts[45].cmd('hping3 10.0.0.46 -p 12345 -S -i u14285 -c 1050'))
+    # info(hosts[44].cmd('hping3 10.0.0.46 -p 12345 -S -i u11111 -c 1350'))
+    # time.sleep(33)
+
+    # for host in hosts[26:44]:
+    #     t = Thread(target=tester2, args=(host,))
+    #     t.start()
+    #     time.sleep(0.2)
+
+    # time.sleep(62)
+    # info(hosts[45].cmd('hping3 10.0.0.46 -p 12345 -S -i u10000 -c 1500'))
+    # info(hosts[44].cmd('hping3 10.0.0.46 -p 12345 -S -i u10000 -c 1500'))
+
 
 if __name__ == '__main__':
     setLogLevel('info')
