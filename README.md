@@ -47,7 +47,8 @@ Enter this into Mininet: sudo python mytopo.py
 
 - [ ] ~~Check number of tcp connections~~
 
-
+xterm server
+sudo python server.py
 
 
 
