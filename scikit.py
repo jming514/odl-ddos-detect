@@ -1,53 +1,82 @@
 import numpy as np
+import csv
 import pandas as pd
 import matplotlib
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-from sklearn import svm
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import confusion_matrix,classification_report
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.cluster import KMeans
-from mpl_toolkits.mplot3d import Axes3D
-from sklearn.preprocessing import scale
-import sklearn.metrics as sm
-import pylab as pl
-from sklearn.decomposition import PCA
-from mpl_toolkits.mplot3d import Axes3D
+from itertools import groupby
+from operator import itemgetter
+import threading
+import random
 
 ddos = pd.read_csv("testdataset2.csv")
 ddos.info()
 
-# x are the features, y are the labels
-x = ddos.drop('Column5', axis=1)
-y = ddos['Column5']
 
-kmeans = KMeans(n_clusters=2)
-KMmodel = kmeans.fit(x)
-# KMmodel.labels_
-# KMmodel.cluster_centers_
-print(KMmodel.labels_)
-print(KMmodel.cluster_centers_)
-#testing with a new variable
-xnew = [[200, 100, 20000, 40000]]
-#xnew = sc.transform(xnew)
-ynew = kmeans.predict(xnew)
-print(ynew)
+x = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\testdataset3.csv")
+kmeans = KMeans(n_clusters=2) #creating 2 clusters for ddos/notddos
+KMmodel = kmeans.fit(x) #initial kmean training
+y = KMmodel.labels_
+print(KMmodel.labels_)  #printing labels
+print(KMmodel.cluster_centers_) #printing values of centers of both clusters
 
-print(pd.crosstab(y, KMmodel.labels_))  #see how many get labelled as 0 or 1
+#grouping indexes by clusters in order to determine index values of where the ddos happens
+groups = [(k, sum(1 for _ in g)) for k, g in groupby(KMmodel.labels_)] 
+cursor = 0
+result = []
+for k, l  in groups:
+    if not k and l >= 5:
+        result.append([cursor, cursor + l - 1])
+    cursor += l
 
-# pca = PCA(n_components=2).fit(x)
-# pca_2d = pca.transform(x)
-# for i in range(0, pca_2d.shape[0]):
-#     if y[i] == 0:
-#         c1 = pl.scatter(pca_2d[i, 0], pca_2d[i, 1], c='r', marker='+')
-#     elif y[i] == 1:
-#         c2 = pl.scatter(pca_2d[i, 0], pca_2d[i, 1], c='g', marker='o')
-# pl.legend([c1, c2], ['NOT', 'DDOS'])
-# pl.title('dataset with 2 clusters and known outcomes')
 
-# pl.show()
+
+print('The DDOS occurs at flows:')
+print(result)
+
+def printit():
+  threading.Timer(5.0, printit).start()
+  a = random.randrange(200,1600)
+  b = random.randrange(300,2000)
+  c = random.randrange(1000,100000)
+  d = random.randrange(1000,100000)
+  xnew = [[a,b,c,d]]
+  xnewx = [a,b,c,d]
+  
+  with open("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\testdataset3.csv",'a') as fd:
+    fd.write("{0}, {1}, {2}, {3}\n".format(xnewx[0], xnewx[1], xnewx[2], xnewx[3]))
+
+   
+  x = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\testdataset3.csv")
+  kmeans = KMeans(n_clusters=2)
+  KMModel = kmeans.fit(x)
+  print("*DATA HAS BEEN RE-TRAINED*")
+  print(xnew)
+  print("*NEW DATA ADDED TO FILE*")
+  ynew = kmeans.predict(xnew)
+  print(ynew)
+  groups = [(k, sum(1 for _ in g)) for k, g in groupby(KMmodel.labels_)] 
+  cursor = 0
+  result = []
+  for k, l  in groups:
+    if  not k and l >= 5:
+        result.append([cursor, cursor + l - 1])
+    cursor += l
+
+
+  
+  print('The DDOS occurs at flows:')
+  print(result)
+  print('')
+
+printit()
+print(pd.crosstab(y,KMmodel.labels_)) #see how many get labelled as 0 or 1
+
+
+
+
+
+
