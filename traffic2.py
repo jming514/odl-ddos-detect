@@ -9,12 +9,12 @@ from threading import *
 def nettraffic():
     # run for a long time
     x = 0
-    while (x < 500):
+    while (x < 23):
         server = '10.0.0.46'
         port = 12345
 
         # this is the inter-arrival time AND the start time
-        join_time = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7]
+        join_time = [0.75, 0.85, 2.0, 2.6, 3, 3.3, 3.6, 3.8, 4, 4.2, 5, 5.8, 6, 7, 8, 9]
         time.sleep(random.choice(join_time))
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -32,14 +32,14 @@ def nettraffic():
 
         # number of GET requests per connection
         y = 0
-        reqPerConn = [5, 6, 7]
+        reqPerConn = [5, 6, 7, 8, 9, 10, 11]
         while (y < random.choice(reqPerConn)):
             s.sendall(msg)
             reply = s.recv(2048)
             print(reply)
 
             # duration of the connection
-            inter_time = [1.3, 1.4, 1.5, 1.6]
+            inter_time = [0.8, 1.0, 1.2, 2.4, 2.5, 3.1, 4.2, 5.3, 6.3, 6.9, 7]
             time.sleep(random.choice(inter_time))
             y += 1
         x + 1
