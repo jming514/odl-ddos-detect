@@ -29,6 +29,12 @@ def customtopo():
 def tester(host):
     info(host.cmd('python traffic.py &'))
 
+def tester1(host):
+    info(host.cmd('python traffic1.py &'))
+
+def tester2(host):
+    info(host.cmd('python traffic2.py &'))
+
 def runEverything(net):
     for host in hosts[0:10]:
         t = Thread(target=tester, args=(host,))
@@ -36,12 +42,12 @@ def runEverything(net):
         time.sleep(0.2)
     time.sleep(60)
     for host in hosts[10:26]:
-        t = Thread(target=tester, args=(host,))
+        t = Thread(target=tester1, args=(host,))
         t.start()
         time.sleep(0.2)
     time.sleep(60)
     for host in hosts[26:44]:
-        t = Thread(target=tester, args=(host,))
+        t = Thread(target=tester2, args=(host,))
         t.start()
         time.sleep(0.2)
 
