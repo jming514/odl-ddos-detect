@@ -47,10 +47,14 @@ Enter this into Mininet: sudo python mytopo.py
 
 - [ ] ~~Check number of tcp connections~~
 
+
+Steps for running:
+
+sudo python mytopo.py
+
 xterm server
-sudo python server.py
 
-
+[server] sudo python server.py
 
 
 ~~Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.~~
