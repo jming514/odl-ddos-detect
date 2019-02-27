@@ -18,41 +18,69 @@ def customtopo():
     info('*** Adding hosts\n')
     for h in range(1, 46):
         net.addHost('h' + str(h))
-        # net.addLink('h' + str(h), switcha)
     net.addHost('server')
 
     info('*** Creating links\n')
-    net.addLink('server', switchb)
-    net.addLink(switcha, switchb)
+    info(net.addLink('server', switchb))
+    info(net.addLink(switcha, switchb))
     for h in range(1, 46):
         net.addLink('h' + str(h), switcha)
 
 def tester(host):
-    if str(host) == 'h2' or str(host) == 'h3':
-        time.sleep(45)
-        info(host.cmd('hping3 10.0.0.46 -p 12345 -S -i u34000 -c 3600'))
-    else:
-        info(host.cmd('python traffic.py &'))
+    info(host.cmd('python traffic.py &'))
+
+def tester1(host):
+    info(host.cmd('python traffic1.py &'))
+
+def tester2(host):
+    info(host.cmd('python traffic2.py &'))
 
 def runEverything(net):
-    for host in hosts[:-1]:
+    for host in hosts[0:10]:
         t = Thread(target=tester, args=(host,))
         t.start()
-        time.sleep(.1)
+        time.sleep(0.2)
+    
+    # time.sleep(60)
+    # info(hosts[45].cmd('hping3 10.0.0.46 -p 12345 -S -i u33000 -c 450'))
+    # info(hosts[44].cmd('hping3 10.0.0.46 -p 12345 -S -i u33000 -c 450'))
+    # time.sleep(10)
 
-    # hosts[-1].cmd('ping -c 1 10.0.0.1')
-    hosts[-1].cmd('python server.py &')
+    # for host in hosts[10:26]:
+    #     t = Thread(target=tester1, args=(host,))
+    #     t.start()
+    #     time.sleep(0.2)
+
+    # time.sleep(72)
+    # info(hosts[45].cmd('hping3 10.0.0.46 -p 12345 -S -i u14285 -c 1050'))
+    # info(hosts[44].cmd('hping3 10.0.0.46 -p 12345 -S -i u11111 -c 1350'))
+    # time.sleep(33)
+
+    # for host in hosts[26:44]:
+    #     t = Thread(target=tester2, args=(host,))
+    #     t.start()
+    #     time.sleep(0.2)
+
+    # time.sleep(62)
+    # info(hosts[45].cmd('hping3 10.0.0.46 -p 12345 -S -i u10000 -c 1500'))
+    # info(hosts[44].cmd('hping3 10.0.0.46 -p 12345 -S -i u10000 -c 1500'))
+
 
 if __name__ == '__main__':
     setLogLevel('info')
     "Create an empty network and then add nodes"
     net = Mininet()
     customtopo()
+    
     info('*** Starting network\n')
     net.start()
     hosts = net.hosts
+    
     time.sleep(2)
-    runEverything(net)
+    # runEverything(net)
+    th = Thread(target=runEverything, args=(net,))
+    th.start()
+
     info('*** Running CLI\n')
     CLI(net)
     info('*** Stopping network')
