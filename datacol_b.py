@@ -53,7 +53,10 @@ def collectData():
             df.dropna()
             df_out = df.diff()
             df_out = df_out.dropna()
-            df_out.to_csv('flowDataset5.csv', index=False)
+            with open('flowDataset4.csv', 'a', newline='') as myfile:
+                 wr = csv.writer(myfile)
+                 wr.writerow(df_out)
+            
             
 
 
