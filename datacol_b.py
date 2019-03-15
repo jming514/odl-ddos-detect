@@ -1,25 +1,21 @@
-import json
-import requests
-import time
-import numpy as np
 import csv
-import pandas as pd
-import matplotlib
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix, classification_report
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, classification_report
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import accuracy_score
-from sklearn.cluster import KMeans
+import json
+import random
+import threading
+import time
 from itertools import groupby
 from operator import itemgetter
-import threading
-import random
+
+import matplotlib
+import numpy as np
+import pandas as pd
+import requests
 from sklearn import metrics
+from sklearn.cluster import KMeans
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 somevar = [0, 0]
 
