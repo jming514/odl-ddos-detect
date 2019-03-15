@@ -22,7 +22,8 @@ def nettraffic():
         port = 12345
 
         # this is the inter-arrival time AND the start time
-        join_time = [j * 0.1 for j in range(1, 100)]
+
+        join_time = [j * 0.1 for j in range(20, 40)]
         time.sleep(random.choice(join_time))
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -39,7 +40,7 @@ def nettraffic():
 
         # number of GET requests per connection
         y = 0
-        reqPerConn = [1, 2, 3, 4, 5]
+        reqPerConn = [5, 6, 7]
         reqConns = random.choice(reqPerConn)
         while (y < reqConns):
             s.sendall(msg)
@@ -47,7 +48,7 @@ def nettraffic():
             print(reply)
 
             # duration of the connection
-            inter_time = [j * 0.1 for j in range(1, 80)]
+            inter_time = [j * 0.1 for j in range(30, 140)]
             time.sleep(random.choice(inter_time))
             y += 1
         x += 1
@@ -57,10 +58,9 @@ def nettraffic():
 if __name__ == '__main__':
     print('Running')
     time.sleep(30)
-    # nettraffic()
 
     # each client will have range(x) simultaneous connections to the server
-    for i in range(5):
+    for i in range(7):
         t = Thread(target=nettraffic)
         t.start()
         time.sleep(0.5)
