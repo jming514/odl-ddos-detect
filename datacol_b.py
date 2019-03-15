@@ -117,9 +117,6 @@ def collectData():
 
 def printit():
     global somevar
-
-    # threading.Timer(5.0, printit).start()
-
     df = pd.read_csv("flowDataset5.csv")
     x1 = df.values[-1].tolist()
     print(x1)
