@@ -14,7 +14,7 @@ try:
 except socket.error as e:
     print(str(e))
 
-s.listen(5)
+s.listen(50)
 print 'Waiting for a connection...' 
 
 # thread fuction 
