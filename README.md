@@ -39,6 +39,12 @@ Enter this into Mininet: sudo python mytopo.py
 
 ## TODO List
 
+- [ ] Final report
+
+- [ ] false positive/negative test
+
+- [ ] 
+
 - [x] Multithread traffic.py (up to 10 connections at once) || Currently running 5 connections a once
 
 - [x] Move hping3 SYN attacks from topology script to CLI for better control of when attacks appear in dataset
@@ -48,8 +54,6 @@ Enter this into Mininet: sudo python mytopo.py
 - [x] Why is Tx pkts double Rx pkts? Tx and Rx should be almost the same || Same results with rewritten server.py BUT 0207 results are fixed??
 
 - [x] ~~Find maximum number of connections before crashes~~ || 45 hosts with 5 threaded connections possible
-
-- [ ] ~~Check number of tcp connections~~
 
 
 Steps for running:
