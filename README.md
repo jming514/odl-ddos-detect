@@ -32,7 +32,11 @@ Run Xming
 
 Open Miniedit in Putty
 
-Enter this into Mininet: sudo python mytopo.py
+Enter this into new terminal: sudo python mytopo.py
+
+xterm server
+
+[server] sudo python server.py
 ```
 
 [Explanation](http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf) of attributes for Kyoto University dataset
@@ -51,9 +55,9 @@ Steps for running:
 
 sudo python mytopo.py
 
-xterm server
 
-[server] sudo python server.py
+
+
 
 
 ~~Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.~~
