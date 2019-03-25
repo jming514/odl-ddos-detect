@@ -19,13 +19,11 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 somevar = [0, 0]
 
-# x = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\flowDataset5.csv")
-# x.dropna()
-ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\flowDataset6.csv")
+ddos = pd.read_csv("flowDataset6.csv")
 x = ddos.drop("Column5", axis=1)
 y = ddos["Column5"]
 sc = StandardScaler()
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0, random_state=0)
 x_train = sc.fit_transform(x_train)
 
 
@@ -52,7 +50,7 @@ def Randomforest(x1):
 def collectData():
     # API request + json dump
     r = requests.get(
-        "http://192.168.75.128:8181/restconf/operational/opendaylight-inventory:nodes",
+        "http://192.168.101.129:8181/restconf/operational/opendaylight-inventory:nodes",
         auth=("admin", "admin"),
     )
     data = r.json()
@@ -81,13 +79,14 @@ def collectData():
                 "opendaylight-port-statistics:flow-capable-node-connector-statistics"
             ]["bytes"]["transmitted"]
 
-            entry = [a, b, c, d, e]
+            # entry = [a, b, c, d, e]
             entry1 = [b, c, d, e]
 
-            with open("flowDataset.txt", "a") as f:
-                for item in entry:
-                    f.write("%s\t" % item)
-                f.write("\n")
+            # no longer needed (?)
+            # with open("flowDataset.txt", "a") as f:
+            #     for item in entry:
+            #         f.write("%s\t" % item)
+            #     f.write("\n")
 
             with open("flowDataset4.csv", "a", newline="") as myfile:
                 wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
@@ -101,7 +100,7 @@ def collectData():
             df3 = pd.read_csv("flowDataset5.csv")
             xnew = df3.values[-1].tolist()
             xnew1 = int(somevar[0])
-            xnew2 = [xnew[0], xnew[1], xnew[2], xnew[3], xnew1]
+            xnew2 = [int(xnew[0]), int(xnew[1]), int(xnew[2]), int(xnew[3]), xnew1]
             with open("flowDataset6.csv", "a", newline="") as myfile:
                 wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
                 wr.writerow(xnew2)
@@ -126,10 +125,10 @@ def printit():
 
 if __name__ == "__main__":
     x = 0
-    while x < 120:
+    while x < 500:
         collectData()
         print(x)
         printit()
 
-        time.sleep(3)
+        time.sleep(6)
         x += 1
