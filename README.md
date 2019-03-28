@@ -8,21 +8,10 @@ Make sure to change the directory to where mytopo.py is before running the scrip
 
 There are 3 separate traffic files because group A B and C are diffferent. There is a maximum of 10*5 + 15*7 + 17*10 = 325
 
-~#24
+slowest attack before too many false positives appear
 
-     hping3 10.0.0.46 -p 12345 -S -i u33000 -c 450               # h44 h45
-
-~#58
-
-     hping3 10.0.0.46 -p 12345 -S -i u14285 -c 1050              # h44 
-
-~#58
-
-     hping3 10.0.0.46 -p 12345 -S -i u11111 -c 1350              # h45
-
-~#98
-
-     hping3 10.0.0.46 -p 12345 -S -i u10000 -c 1500              # h44 h45
+     hping3 10.0.0.46 -p 12345 -S -i u100000 -c 450              # h44 h45
+     
 ```
 Start ODL
 
@@ -45,19 +34,12 @@ xterm server
 
 - [ ] Final report
 
-- [ ] false positive/negative test
+- [x] false positive/negative test
 
-- [ ] Complete live plotting
+- [x] Complete live plotting
 
+- [ ] improve GUI
 
+- [ ] change datacol_b and livegraph into modules -> cleaner GUI code
 
-Steps for running:
-
-sudo python mytopo.py
-
-
-
-
-
-
-~~Run mytopo.py and wait for a host to appear before running datacol_b.py in linux. Stop datacol_b.py before Mininet if you want to keep the last instance of the .json otherwise it will be empty on the last API request.~~
+- [ ] try older traffic and see if periodic spikes reappear (current script has spikes again)
