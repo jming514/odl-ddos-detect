@@ -19,7 +19,8 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 somevar = [0, 0]
 
-ddos = pd.read_csv("flowDataset6.csv")
+# training algorithm
+ddos = pd.read_csv("trainingset.csv")
 x = ddos.drop("Column5", axis=1)
 y = ddos["Column5"]
 sc = StandardScaler()
@@ -79,27 +80,28 @@ def collectData():
                 "opendaylight-port-statistics:flow-capable-node-connector-statistics"
             ]["bytes"]["transmitted"]
 
-            # entry = [a, b, c, d, e]
             entry1 = [b, c, d, e]
-
-            # no longer needed (?)
-            # with open("flowDataset.txt", "a") as f:
-            #     for item in entry:
-            #         f.write("%s\t" % item)
-            #     f.write("\n")
 
             with open("flowDataset4.csv", "a", newline="") as myfile:
                 wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
                 wr.writerow(entry1)
 
+            # read from raw file
             df = pd.read_csv("flowDataset4.csv")
-            df = df.dropna()
-            df_out = df.diff()
-            df_out = df_out.dropna()
-            df_out.to_csv("flowDataset5.csv", index=False)
+            df = df.dropna()  # drop missing values
+            df_out = df.diff()  # calculate difference from previous row
+            df_out = df_out.dropna()  # drop missing values again
+            df_out.to_csv("flowDataset5.csv", index=False)  # write to new file
+            # read new file
             df3 = pd.read_csv("flowDataset5.csv")
-            xnew = df3.values[-1].tolist()
-            xnew1 = int(somevar[0])
+            xnew = df3.values[-1].tolist()  # last row in file
+            # prediction
+            x_test1 = sc.transform([xnew])
+            somevar = Randomforest(x_test1)
+            print(xnew)
+            print(somevar)
+
+            xnew1 = int(somevar[0])  # convert label to int
             xnew2 = [int(xnew[0]), int(xnew[1]), int(xnew[2]), int(xnew[3]), xnew1]
             with open("flowDataset6.csv", "a", newline="") as myfile:
                 wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
@@ -128,7 +130,7 @@ if __name__ == "__main__":
     while x < 500:
         collectData()
         print(x)
-        printit()
+        # printit()
 
         time.sleep(6)
         x += 1
