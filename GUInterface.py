@@ -23,19 +23,18 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-
+from sklearn.neural_network import MLPClassifier
 import tkinter.messagebox
 
 def collectdata():
     somevar = [0, 0]
 
-    # x = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\flowDataset5.csv")
-    # x.dropna()
-    ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\flowDataset6.csv")
+    # training algorithm
+    ddos = pd.read_csv("flowDataset6.csv")
     x = ddos.drop("Column5", axis=1)
     y = ddos["Column5"]
     sc = StandardScaler()
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0, random_state=0)
     x_train = sc.fit_transform(x_train)
 
 
@@ -57,8 +56,11 @@ def collectdata():
         # print('This models accuracy is:')
         # print(accuracy_score(y_test,pred_rfc))
         return pred_rfc
-
-
+    def NeuralNetwork(x1):
+        mlpc=MLPClassifier(hidden_layer_sizes=(11,11,11),max_iter=500)
+        mlpc.fit(x_train,y_train)
+        pred_mlpc = mlpc.predict(x1)
+        return pred_rfc
     def collectData():
         # API request + json dump
         r = requests.get(
@@ -91,26 +93,28 @@ def collectdata():
                     "opendaylight-port-statistics:flow-capable-node-connector-statistics"
                 ]["bytes"]["transmitted"]
 
-                entry = [a, b, c, d, e]
                 entry1 = [b, c, d, e]
-
-                with open("flowDataset.txt", "a") as f:
-                    for item in entry:
-                        f.write("%s\t" % item)
-                    f.write("\n")
 
                 with open("flowDataset4.csv", "a", newline="") as myfile:
                     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
                     wr.writerow(entry1)
 
+                # read from raw file
                 df = pd.read_csv("flowDataset4.csv")
-                df = df.dropna()
-                df_out = df.diff()
-                df_out = df_out.dropna()
-                df_out.to_csv("flowDataset5.csv", index=False)
+                df = df.dropna()  # drop missing values
+                df_out = df.diff()  # calculate difference from previous row
+                df_out = df_out.dropna()  # drop missing values again
+                df_out.to_csv("flowDataset5.csv", index=False)  # write to new file
+                # read new file
                 df3 = pd.read_csv("flowDataset5.csv")
-                xnew = df3.values[-1].tolist()
-                xnew1 = int(somevar[0])
+                xnew = df3.values[-1].tolist()  # last row in file
+                # prediction
+                x_test1 = sc.transform([xnew])
+                somevar = Randomforest(x_test1)
+                print(xnew)
+                print(somevar)
+
+                xnew1 = int(somevar[0])  # convert label to int
                 xnew2 = [int(xnew[0]), int(xnew[1]), int(xnew[2]), int(xnew[3]), xnew1]
                 with open("flowDataset6.csv", "a", newline="") as myfile:
                     wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
@@ -136,32 +140,35 @@ def collectdata():
 
     if __name__ == "__main__":
         x = 0
-        while x < 120:
+        while x < 500:
             collectData()
             print(x)
-            printit()
+            # printit()
 
-            #time.sleep(3)
+            time.sleep(6)
             x += 1
+
 
 def livegraph():
     
     tkinter.messagebox.showinfo( "Live Graph", "This program collects network data from OpenDayLight controller and determines if the network flows are normal or DDoS attacks")
 
-FILENAME = 'ddos4.png'
-root = tk.Tk()
-canvas = tk.Canvas(root, width=600, height=400)
-canvas.pack()
-tk_img = ImageTk.PhotoImage(file = FILENAME)
-canvas.create_image(300, 200, image=tk_img)
-quit_button = tk.Button(root, text = "Quit", command = root.quit, anchor = 'w',
-                    width = 10, height = 0,bg = "#2FB19F", activebackground = "#00FF00")
-quit_button_window = canvas.create_window(36, 119, anchor='nw', window=quit_button)   
 
-main_button = tk.Button(root, text = "About", command = livegraph, anchor = 'w',
-                   width = 10, height = 0, bg = "#2FB19F", activebackground = "#00FF00")
-main_button_window = canvas.create_window(37, 89, anchor='nw', window=main_button)    
-main2_button = tk.Button(root, text = "Collect Data", command = collectdata, anchor = 'w',
+while(1):
+    FILENAME = 'ddos4.png'
+    root = tk.Tk()
+    canvas = tk.Canvas(root, width=600, height=400)
+    canvas.pack()
+    tk_img = ImageTk.PhotoImage(file = FILENAME)
+    canvas.create_image(300, 200, image=tk_img)
+    quit_button = tk.Button(root, text = "Quit", command = root.quit, anchor = 'w',
+                        width = 10, height = 0,bg = "#2FB19F", activebackground = "#00FF00")
+    quit_button_window = canvas.create_window(36, 119, anchor='nw', window=quit_button)   
+
+    main_button = tk.Button(root, text = "About", command = livegraph, anchor = 'w',
                     width = 10, height = 0, bg = "#2FB19F", activebackground = "#00FF00")
-main2_button_window = canvas.create_window(37,59, anchor='nw', window=main2_button)
-root.mainloop()
+    main_button_window = canvas.create_window(37, 89, anchor='nw', window=main_button)    
+    main2_button = tk.Button(root, text = "Collect Data", command = collectdata, anchor = 'w',
+                        width = 10, height = 0, bg = "#2FB19F", activebackground = "#00FF00")
+    main2_button_window = canvas.create_window(37,59, anchor='nw', window=main2_button)
+    root.mainloop()
