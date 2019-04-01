@@ -60,7 +60,7 @@ def collectdata():
         mlpc=MLPClassifier(hidden_layer_sizes=(11,11,11),max_iter=500)
         mlpc.fit(x_train,y_train)
         pred_mlpc = mlpc.predict(x1)
-        return pred_rfc
+        return pred_mlpc
     def collectData():
         # API request + json dump
         r = requests.get(
