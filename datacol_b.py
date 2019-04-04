@@ -19,13 +19,12 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 somevar = [0, 0]
 
-# x = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\flowDataset5.csv")
-# x.dropna()
-ddos = pd.read_csv("C:\\Users\\Deep\\Desktop\\odl-ddos-detect\\flowDataset6.csv")
+# training algorithm
+ddos = pd.read_csv("trainingset.csv")
 x = ddos.drop("Column5", axis=1)
 y = ddos["Column5"]
 sc = StandardScaler()
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0, random_state=0)
 x_train = sc.fit_transform(x_train)
 
 
@@ -52,7 +51,7 @@ def Randomforest(x1):
 def collectData():
     # API request + json dump
     r = requests.get(
-        "http://192.168.75.128:8181/restconf/operational/opendaylight-inventory:nodes",
+        "http://192.168.101.129:8181/restconf/operational/opendaylight-inventory:nodes",
         auth=("admin", "admin"),
     )
     data = r.json()
@@ -81,27 +80,29 @@ def collectData():
                 "opendaylight-port-statistics:flow-capable-node-connector-statistics"
             ]["bytes"]["transmitted"]
 
-            entry = [a, b, c, d, e]
             entry1 = [b, c, d, e]
-
-            with open("flowDataset.txt", "a") as f:
-                for item in entry:
-                    f.write("%s\t" % item)
-                f.write("\n")
 
             with open("flowDataset4.csv", "a", newline="") as myfile:
                 wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
                 wr.writerow(entry1)
 
+            # read from raw file
             df = pd.read_csv("flowDataset4.csv")
-            df = df.dropna()
-            df_out = df.diff()
-            df_out = df_out.dropna()
-            df_out.to_csv("flowDataset5.csv", index=False)
+            df = df.dropna()  # drop missing values
+            df_out = df.diff()  # calculate difference from previous row
+            df_out = df_out.dropna()  # drop missing values again
+            df_out.to_csv("flowDataset5.csv", index=False)  # write to new file
+            # read new file
             df3 = pd.read_csv("flowDataset5.csv")
-            xnew = df3.values[-1].tolist()
-            xnew1 = int(somevar[0])
-            xnew2 = [xnew[0], xnew[1], xnew[2], xnew[3], xnew1]
+            xnew = df3.values[-1].tolist()  # last row in file
+            # prediction
+            x_test1 = sc.transform([xnew])
+            somevar = Randomforest(x_test1)
+            print(xnew)
+            print(somevar)
+
+            xnew1 = int(somevar[0])  # convert label to int
+            xnew2 = [int(xnew[0]), int(xnew[1]), int(xnew[2]), int(xnew[3]), xnew1]
             with open("flowDataset6.csv", "a", newline="") as myfile:
                 wr = csv.writer(myfile, quoting=csv.QUOTE_NONE)
                 wr.writerow(xnew2)
@@ -126,10 +127,10 @@ def printit():
 
 if __name__ == "__main__":
     x = 0
-    while x < 120:
+    while x < 500:
         collectData()
         print(x)
-        printit()
+        # printit()
 
-        time.sleep(3)
+        time.sleep(6)
         x += 1
