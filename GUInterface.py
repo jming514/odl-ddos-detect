@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 from matplotlib.figure import Figure
 
+import subprocess
+import datacol_b
+
+
 import csv
 import json
 import random
@@ -38,15 +42,15 @@ def collectdata():
     x_train = sc.fit_transform(x_train)
 
 
-    def kmeans():
+    def kmeans(x1):
         kmeans = KMeans(n_clusters=2)  # creating 2 clusters for ddos/notddos
         KMmodel = kmeans.fit(x)  # initial kmean training
         y = KMmodel.labels_
         print(KMmodel.labels_)  # printing labels
         # printing values of centers of both clusters
         print(KMmodel.cluster_centers_)
-
-
+        pred_rfc = rfc.predict(x1)
+        return pred_rfc
     def Randomforest(x1):
         rfc = RandomForestClassifier(n_estimators=200)  # how many trees in forest
         rfc.fit(x_train, y_train)
@@ -57,7 +61,7 @@ def collectdata():
         # print(accuracy_score(y_test,pred_rfc))
         return pred_rfc
     def NeuralNetwork(x1):
-        mlpc=MLPClassifier(hidden_layer_sizes=(11,11,11),max_iter=500)
+        mlpc = MLPClassifier(hidden_layer_sizes=(11,11,11),max_iter=500)
         mlpc.fit(x_train,y_train)
         pred_mlpc = mlpc.predict(x1)
         return pred_mlpc
@@ -112,6 +116,8 @@ def collectdata():
                 x_test1 = sc.transform([xnew])
                 somevar = Randomforest(x_test1)
                 print(xnew)
+                row_count = sum(1 for line in open("flowDataset6.csv"))
+                print(row_count)
                 print(somevar)
 
                 xnew1 = int(somevar[0])  # convert label to int
